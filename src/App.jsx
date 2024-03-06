@@ -1,10 +1,10 @@
-import Section from './components/Section/Section';
-import Statistics from './components/Statistics/Statistics';
-import FeedbackOptions from './components/FeedbackOptions/FeedbackOptions';
-import Notification from './components/Notification/Notification';
+import { Section } from './components/Section/Section';
+import { Statistics } from './components/Statistics/Statistics';
+import { FeedbackOptions } from './components/FeedbackOptions/FeedbackOptions';
+import { Notification } from './components/Notification/Notification';
 import { useState } from 'react';
 
-export default App = () => {
+export const App = () => {
   const SECTION_TITLE = 'Please leave us feedback:';
   const NOTIF_MSG = 'There is no feedback';
   const FEEDBACK_OPTIONS = { good: 'Good', neutral: 'Neutral', bad: 'Bad' };

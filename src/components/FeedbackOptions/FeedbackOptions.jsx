@@ -1,6 +1,6 @@
 import propTypes from 'prop-types';
 
-export default FeedbackOptions = (props) => {
+export const FeedbackOptions = (props) => {
   const {option, onLeaveFeedback} = props;
   return (
     <button type="button" onClick={onLeaveFeedback}>

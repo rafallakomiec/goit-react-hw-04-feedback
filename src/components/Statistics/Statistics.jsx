@@ -1,6 +1,6 @@
 import propTypes from 'prop-types';
 
-export default Statistics = (
+export const Statistics = (
   props = {
     good: 0,
     neutral: 0,

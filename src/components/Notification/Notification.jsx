@@ -1,6 +1,6 @@
 import propTypes from 'prop-types';
 
-export default Notification = props => {
+export const Notification = props => {
   const { message } = props;
   return <p>{message}</p>;
 };

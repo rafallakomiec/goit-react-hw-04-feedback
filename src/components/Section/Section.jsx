@@ -1,6 +1,6 @@
 import propTypes from 'prop-types';
 
-export default Section = props => {
+export const Section = props => {
   const { title, children } = props;
   return (
     <section>
