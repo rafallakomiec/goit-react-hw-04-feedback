@@ -1,69 +1,58 @@
-import { Component } from 'react';
 import Section from './components/Section/Section';
 import Statistics from './components/Statistics/Statistics';
 import FeedbackOptions from './components/FeedbackOptions/FeedbackOptions';
 import Notification from './components/Notification/Notification';
+import { useState } from 'react';
 
-class App extends Component {
-  #SECTION_TITLE = 'Please leave us feedback:';
-  #NOTIF_MSG = 'There is no feedback';
-  #FEEDBACK_OPTIONS = { good: 'Good', neutral: 'Neutral', bad: 'Bad' };
+export default App = () => {
+  const SECTION_TITLE = 'Please leave us feedback:';
+  const NOTIF_MSG = 'There is no feedback';
+  const FEEDBACK_OPTIONS = { good: 'Good', neutral: 'Neutral', bad: 'Bad' };
 
-  state = {
-    good: 0,
-    neutral: 0,
-    bad: 0,
+  const [goodStat, setGoodStat] = useState(0);
+  const [neutralStat, setNeutralStat] = useState(0);
+  const [badStat, setBadStat] = useState(0);
+
+  const countTotalFeedback = ({ goodStat, neutralStat, badStat }) => {
+    return goodStat + neutralStat + badStat;
   };
 
-  countTotalFeedback = ({ good, neutral, bad }) => {
-    return good + neutral + bad;
-  };
-
-  countPositiveFeedbackPercentage = (good, total) => {
+  const countPositiveFeedbackPercentage = (good, total) => {
     return (good / total) * 100;
   };
 
-  addGood = () => {
-    this.setState(state => {
-      return { good: state.good + 1 };
-    });
-  };
-  addNeutral = () => {
-    this.setState(state => {
-      return { neutral: state.neutral + 1 };
-    });
-  };
-  addBad = () => {
-    this.setState(state => {
-      return { bad: state.bad + 1 };
-    });
+  const addGood = () => {
+    setGoodStat(goodStat + 1);
   };
 
-  render() {
-    const { good, neutral, bad } = this.state;
-    const total = this.countTotalFeedback(this.state);
-    const positivePercentage = Math.round(this.countPositiveFeedbackPercentage(good, total));
+  const addNeutral = () => {
+    setNeutralStat(neutralStat + 1);
+  };
 
-    return (
-      <Section title={this.#SECTION_TITLE}>
-          <FeedbackOptions option={this.#FEEDBACK_OPTIONS.good} onLeaveFeedback={this.addGood} />
-          <FeedbackOptions
-            option={this.#FEEDBACK_OPTIONS.neutral}
-            onLeaveFeedback={this.addNeutral}
-          />
-          <FeedbackOptions option={this.#FEEDBACK_OPTIONS.bad} onLeaveFeedback={this.addBad} />
-        {total > 0
-          ? (<Statistics
-          good={good}
-          neutral={neutral}
-          bad={bad}
-          total={total}
-          positivePercentage={positivePercentage}
-          />)
-          : (<Notification message={this.#NOTIF_MSG}/>)}
-      </Section>
-    );
-  }
+  const addBad = () => {
+    setBadStat(badStat + 1);
+  };
+
+  const total = countTotalFeedback({goodStat, neutralStat, badStat});
+  const positivePercentage = Math.round(countPositiveFeedbackPercentage(goodStat, total));
+
+  return (
+    <Section title={SECTION_TITLE}>
+        <FeedbackOptions option={FEEDBACK_OPTIONS.good} onLeaveFeedback={addGood} />
+        <FeedbackOptions
+          option={FEEDBACK_OPTIONS.neutral}
+          onLeaveFeedback={addNeutral}
+        />
+        <FeedbackOptions option={FEEDBACK_OPTIONS.bad} onLeaveFeedback={addBad} />
+      {total > 0
+        ? (<Statistics
+        good={goodStat}
+        neutral={neutralStat}
+        bad={badStat}
+        total={total}
+        positivePercentage={positivePercentage}
+        />)
+        : (<Notification message={NOTIF_MSG}/>)}
+    </Section>
+  );
 }
-
-export default App;
